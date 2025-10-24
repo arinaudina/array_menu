@@ -1,31 +1,59 @@
 ﻿#include <stdio.h>
-#include <locale.h>
 #include <time.h>
 #include <math.h>
-#define MAX_SIZE 200								//Максимальное количество элементов массива
-#define RAND_MAX 10000
 
-	// Функционал ввода данных в массив:
+#define MAX_SIZE 200 // Maximum allowable size of the array
+#define MANUAL_LIMIT 20 // Size limit for manual input
+
+/**
+ * Function to fill the array based on user preferences
+ * 
+ * \param arr - array to be filled
+ * \param max_size - maximum allowable size of the array
+ * \param manual_limit - size limit for manual input
+ * \return size of the filled array or -1 in case of error
+ */
+int menu_fill_array(double arr[], int max_size, int manual_limit);
 
 
-int main()
-{
-	setlocale(LC_ALL, "Rus");
-	int ansver, input_status=0;
-	double a[MAX_SIZE];
+int main() {
+	double array[MAX_SIZE]; // Array to be filled
+	int size = 0; // Size of the filled array
 
-	printf("Меню:\n");
-	printf("  1.Ввод\n  2.Вывод\n  3.");
-	scanf("%d", &ansver);
+	int answer = 0;
+	do {
+		// Display menu options
+		printf(
+			"1. Enter array data\n"
+			"2. Display array\n"
+			"3. Sort array\n"
+			"4. Search element\n"
+			"5. Add element\n"
+			"0. Exit\n"
+			"Select: "
+		);
 
-	switch (ansver)
-	{
-		case 1:{
-			//input_status = input(a, MAX_SIZE);
-			break;
+		// Get user input
+		if (scanf("%d", &answer) != 1) {
+			printf("ERR: Invalid input\n");
+			return -1;
 		}
+		printf("\n"); // New line for better readability after scanf
 
-	}
+		// Handle menu options
+		switch (answer) {
+		case 1:
+			size = menu_fill_array(array, MAX_SIZE, MANUAL_LIMIT);
+			if (size < 0) {
+				printf("ERR: Input error\n");
+				return -1;
+			}
+			break;
+		default:
+			answer = 0;
+			break;
+		};
+	} while (answer != 0);
+
+	return 0;
 }
-
-//Проецируемое меню для пользователя
