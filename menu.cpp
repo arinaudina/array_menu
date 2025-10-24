@@ -3,10 +3,10 @@
 #include <time.h>
 #include <math.h>
 #define MAX_SIZE 200								//Максимальное количество элементов массива
-#define RAND_MAX 10000
 
 	// Функционал ввода данных в массив:
 
+int input(double arr[], int size);
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
 	switch (ansver)
 	{
 		case 1:{
-			//input_status = input(a, MAX_SIZE);
+			input_status = input(a, MAX_SIZE);
 			break;
 		}
 
