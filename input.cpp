@@ -3,7 +3,7 @@
 #include <time.h>
 #include <math.h>
 
-
+// Подфункции для ввода данных в массив
 
 int manual_input(double arr[], int size)            //Ручной ввод
 {
@@ -49,7 +49,8 @@ int random_natural_input(double arr[], int size)    // Рандомные чис
 
 int random_range_input(double arr[], int size)      // Рандомные числа в диапазоне [min, max]
 {              
-    int min, max;
+    int min = 0;
+    int max = 0;
 
     srand(time(NULL));
 
@@ -80,7 +81,8 @@ int random_range_input(double arr[], int size)      // Рандомные чис
 
 int arithmetic_progression_input(double arr[], int size)      // Арифметическая прогрессия
 {
-    double start, step;
+    double start = 0.;
+    double step = 0.;
 
 		printf("\n  Введите начальное число: ");
 	    if(scanf("%lf", &start) !=1) //Проверка
@@ -96,7 +98,7 @@ int arithmetic_progression_input(double arr[], int size)      // Арифмет�
                 printf("ERROR");
                 return 1;
             }
-        }while(step == 0);      //чтоб не заполнять массив одинаковыми числами
+        } while(step == 0);      //чтоб не заполнять массив одинаковыми числами
 
 		for (int i = 0; i < size; i++)				
 		{
@@ -109,7 +111,8 @@ int arithmetic_progression_input(double arr[], int size)      // Арифмет�
 
 int geometric_progression_input(double arr[], int size)     // Геометрическая прогрессия
 {
-    double start, ratio;
+    double start = 0.;
+    double ratio = 0.;
 
         do
         {
@@ -119,7 +122,7 @@ int geometric_progression_input(double arr[], int size)     // Геометри�
                 printf("ERROR");
                 return 1;
             }
-        }while(start == 0);
+        } while(start == 0);
         do
         {
 		    printf("  Введите знаменатель прогрессии: ");
@@ -128,7 +131,7 @@ int geometric_progression_input(double arr[], int size)     // Геометри�
                 printf("ERROR");
                 return 1;
             }
-        }while(ratio == 0);         //Чтоб не заполнять массив одинаковыми числами
+        } while(ratio == 0);         //Чтоб не заполнять массив одинаковыми числами
 
 		arr[0] = start;							
 		for (int i = 1; i < size; i++)
@@ -141,27 +144,28 @@ int geometric_progression_input(double arr[], int size)     // Геометри�
 
 int squares_num_input(double arr[], int size)     // Квадраты чисел
 {
-    double start;
-    int ansver;
+    double start = 0.;
+    int answer = 0;
 			
     printf("\n  Введите начальное число: ");
 	if(scanf("%lf", &start) != 1)
-            {
-                printf("ERROR");
-                return 1;
-            }
+    {
+        printf("ERROR");
+        return 1;
+    }
+
     printf ("\n- Введите 1 если хотите заполнять массив по возрастанию\n- Введите 2 если хотите заполнять массив по убыванию\n");
     do
     {
         printf("\n  Ваш ответ: ");
 
-        if(scanf("%d", &ansver) != 1)
-            {
-                printf("ERROR");
-                return 1;
-            }
+        if(scanf("%d", &answer) != 1)
+        {
+            printf("ERROR");
+            return 1;
+        }
         
-        switch (ansver)
+        switch (answer)
         {
             case 1:
             {
@@ -180,7 +184,7 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
                 break;
             }
         }
-    }while ((ansver != 1) && (ansver != 2));
+    } while ((answer != 1) && (answer != 2));
 
     return size;
 }
@@ -188,37 +192,38 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
 
 int pow_num_input(double arr[], int size)       // Массив степени числа
 {
-    double start, start_power;
-    int ansver;
+    double start = 0.;
+    double start_power = 0.;
+    int answer = 0;
 
 	do
     {
-    printf("\n  Введите число: ");
-    if(scanf("%lf", &start) != 1)
-            {
-                printf("ERROR");
-                return 1;
-            }
-    }while((start == 0) || (start == 1));
+        printf("\n  Введите число: ");
+        if(scanf("%lf", &start) != 1)
+        {
+            printf("ERROR");
+            return 1;
+        }
+    } while((start == 0) || (start == 1));
 	printf("  Введите начальную степень: ");
     if(scanf("%lf", &start_power) != 1)
-            {
-                printf("ERROR");
-                return 1;
-            }
+    {
+        printf("ERROR");
+        return 1;
+    }
 
     printf ("\n- Введите 1 если хотите заполнять массив по возрастанию степени\n- Введите 2 если хотите заполнять массив по убыванию степени\n");
     do
     {
         printf("\n  Ваш ответ: ");
 
-        if(scanf("%d", &ansver) != 1)
-            {
-                printf("ERROR");
-                return 1;
-            }
+        if(scanf("%d", &answer) != 1)
+        {
+            printf("ERROR");
+            return 1;
+        }
         
-        switch (ansver)
+        switch (answer)
         {
             case 1:
             {
@@ -236,8 +241,13 @@ int pow_num_input(double arr[], int size)       // Массив степени �
 				} 
                 break;
             }
+            default:
+            {
+                printf("\nНекоректный вариант. Попробуйте снова\n");
+                break;
+            }
         }
-    }while ((ansver != 1) && (ansver != 2));
+    } while ((answer != 1) && (answer != 2));
 
     return size;
 }
@@ -257,7 +267,7 @@ int input(double arr[], int size, int *error_remark)
     printf("    Если размер массива больше 20 - вам будет доступно меню с вариантами заполнения массива\n");
     printf(" - Введите 1 если хотите продолжить или 0 если хотите вернуться назад в главное меню\n \n");
 
-    int forward_back;
+    int forward_back = 0;
     do                                              //Ожидание ответа от пользователя
     { 
         printf("Введите требуемое значение: ");
@@ -272,7 +282,7 @@ int input(double arr[], int size, int *error_remark)
         return 0;
     }
     
-    int user_size;
+    int user_size = 0;
     do												//Количество элементов в массиве
 	{
 		printf("\nВведите размер массива: ");
@@ -290,62 +300,65 @@ int input(double arr[], int size, int *error_remark)
 	}
 	else
 	{
-		printf("\nВарианты заполнения массива:\n");		    //Предоставляемые виды заполнения
-		printf(" 1.Массив со случайными числами в полном диапазоне\n 2.Массив со случайными неотрицательными числами\n 3.Массив чисел от _ до _\n");
-		printf(" 4.Массив арифметической прогрессии\n 5.Массив геометрической прогрессии\n 6.Массив квадратов чисел\n 7.Массив степени числа\n\nВыберите как заполнить массив: ");
-		
-        int ansver1;
-        if (scanf("%d", &ansver1) != 1)
+        int answer = 0;
+        do
         {
-            *error_remark = +1;
-            return 1;
-        }
+		    printf(
+		        "\nВарианты заполнения массива:\n"
+    	        " 1. Массив со случайными числами в полном диапазоне\n"
+  		        " 2. Массив со случайными неотрицательными числами\n"
+  		        " 3. Массив чисел от _ до _\n"
+ 		        " 4. Массив арифметической прогрессии\n"
+  		        " 5. Массив геометрической прогрессии\n"
+  		        " 6. Массив квадратов чисел\n"
+  		        " 7. Массив степени числа\n\n"
+ 		        "Выберите как заполнить массив: "
+                );
+            if (scanf("%d", &answer) != 1)
+            {
+                *error_remark = +1;
+                return 1;
+            }
 
-		switch (ansver1)								// Обработка запроса пользователя
-		{
-			case 1:
-			{
-                user_size = random_full_input(arr, user_size);
-				break;
-			}
+		    switch (answer)								// Обработка запроса пользователя
+		    {
+			    case 1:
+                    user_size = random_full_input(arr, user_size);
+				    break;
 
-			case 2:
-			{
-				user_size = random_natural_input(arr, user_size);
-				break;
-			}
+			    case 2:
+				    user_size = random_natural_input(arr, user_size);
+				    break;
 
-			case 3:
-			{
-                user_size = random_range_input(arr, user_size);
-				break;
-			}
+			    case 3:
+                    user_size = random_range_input(arr, user_size);
+				    break;
 
-			case 4:
-			{
-                user_size = arithmetic_progression_input(arr, user_size);
-				break;
-			}
+			    case 4:
+                    user_size = arithmetic_progression_input(arr, user_size);
+				    break;
 
-			case 5:
-			{
-				user_size = geometric_progression_input(arr, user_size);
-				break;
-			}
+			    case 5:
+				    user_size = geometric_progression_input(arr, user_size);
+				    break;
 
-			case 6:
-			{
-				user_size = squares_num_input(arr, user_size);
-				break;
-			}
+			    case 6:
+				    user_size = squares_num_input(arr, user_size);
+				    break;
 
-			case 7:
-			{
-				user_size = pow_num_input(arr, user_size);
-				break;
-			}
+			    case 7:
+				    user_size = pow_num_input(arr, user_size);
+				    break;
 
-		} return user_size;
-	}
+                default:
+                    printf("\nНекоректный вариант. Попробуйте снова\n");
+                    break;
+            }
+
+        } while ((answer < 1) || (answer > 7));
+
+	} 
+
     return user_size;
 }
+   
