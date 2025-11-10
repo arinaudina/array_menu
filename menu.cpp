@@ -14,6 +14,14 @@
  * \return size of the filled array or -1 in case of error
  */
 int menu_fill_array(double arr[], int max_size, int manual_limit);
+/**
+ * Function to sort the array based on user-selected method
+ * 
+ * \param arr - array to be sorted
+ * \param size - size of the array
+ * \return size of the sorted array or -1 in case of error
+ */
+int menu_sort_array(double arr[], int size);
 
 
 int main() {
@@ -21,6 +29,7 @@ int main() {
 	int size = 0; // Size of the filled array
 
 	int answer = 0;
+	bool sorted = false;
 	do {
 		// Display menu options
 		printf(
@@ -49,6 +58,24 @@ int main() {
 				return -1;
 			}
 			break;
+		case 2:
+			if (size > 0) {
+				printf("Array elements:\n");
+				for (int i = 0; i < size; i++) {
+					printf("  Element %d: %lf\n", i + 1, array[i]);
+				}
+			} else {
+				printf("Array is empty. Please fill the array first.\n");
+			}
+			break;
+		case 3: {
+			const int error = menu_sort_array(array, size);
+			sorted = (error >= 0);
+			if (!sorted) {
+				printf("ERR: Array sorting failed\n");
+			}
+			break;
+		}
 		default:
 			answer = 0;
 			break;
