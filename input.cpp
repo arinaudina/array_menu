@@ -1,19 +1,22 @@
 #include <stdio.h>
-#include <locale.h>
 #include <time.h>
 #include <math.h>
 
 // Подфункции для ввода данных в массив
 
-int manual_input(double arr[], int size)            //Ручной ввод
+int manual_input(double arr[], int size, int *error)            //Ручной ввод
 {
     printf("\n  Введите элементы массива:\n");
 
-    for (int i = 0; i < size; i++) {
-        if (scanf("%lf", &arr[i]) != 1)    //Проверка
+    if (error == NULL)
+        return -1;
+
+    for (int i = 0; i < size; i++) 
+    {
+        if (scanf("%lf", &arr[i]) != 1)
         {
-            printf("ERROR\n");
-            return 1;
+            *error = -1;
+            return -1;
         }
     }
 
@@ -47,26 +50,29 @@ int random_natural_input(double arr[], int size)    // Рандомные чис
 }
 
 
-int random_range_input(double arr[], int size)      // Рандомные числа в диапазоне [min, max]
+int random_range_input(double arr[], int size, int *error)      // Рандомные числа в диапазоне [min, max]
 {              
     int min = 0;
     int max = 0;
+
+    if (error == NULL)
+        return -1;
 
     srand(time(NULL));
 
 	do
     {
         printf("\n  Введите целое минимальное значение: ");
-	    if(scanf("%d", &min) !=1) //Проверка
+	    if(scanf("%d", &min) !=1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
 	    printf("  Введите целое максимальное значение: ");
-	    if(scanf("%d", &max) != 1) //Проверка
+	    if(scanf("%d", &max) != 1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
     } while (min >= max); //Получение корректных значений от пользователя
 
@@ -79,24 +85,27 @@ int random_range_input(double arr[], int size)      // Рандомные чис
 }
 
 
-int arithmetic_progression_input(double arr[], int size)      // Арифметическая прогрессия
+int arithmetic_progression_input(double arr[], int size, int *error)      // Арифметическая прогрессия
 {
     double start = 0.;
     double step = 0.;
 
+    if (error == NULL)
+        return -1;
+
 		printf("\n  Введите начальное число: ");
-	    if(scanf("%lf", &start) !=1) //Проверка
+	    if(scanf("%lf", &start) !=1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
 	    do
         {
             printf("  Введите шаг прогрессии: ");
-	        if(scanf("%lf", &step) != 1) //Проверка
+	        if(scanf("%lf", &step) != 1)
             {
-                printf("ERROR");
-                return 1;
+                *error = -1;
+                return -1;
             }
         } while(step == 0);      //чтоб не заполнять массив одинаковыми числами
 
@@ -109,18 +118,21 @@ int arithmetic_progression_input(double arr[], int size)      // Арифмет�
 }
 
 
-int geometric_progression_input(double arr[], int size)     // Геометрическая прогрессия
+int geometric_progression_input(double arr[], int size, int *error)     // Геометрическая прогрессия
 {
     double start = 0.;
     double ratio = 0.;
 
+    if (error == NULL)
+        return -1;
+
         do
         {
 		    printf("\n  Введите начальное число: ");
-            if(scanf("%lf", &start) !=1) //Проверка
+            if(scanf("%lf", &start) !=1)
             {
-                printf("ERROR");
-                return 1;
+                *error = -1;
+                return -1;
             }
         } while(start == 0);
         do
@@ -128,8 +140,8 @@ int geometric_progression_input(double arr[], int size)     // Геометри�
 		    printf("  Введите знаменатель прогрессии: ");
             if(scanf("%lf", &ratio) != 1) //Проверка
             {
-                printf("ERROR");
-                return 1;
+                *error = -1;
+                return -1;
             }
         } while(ratio == 0);         //Чтоб не заполнять массив одинаковыми числами
 
@@ -138,20 +150,24 @@ int geometric_progression_input(double arr[], int size)     // Геометри�
         {
 			arr[i] = arr[i - 1] * ratio;		// aₙ = a₁ * qⁿ⁻¹
 		}
+
         return size;
 }
 
 
-int squares_num_input(double arr[], int size)     // Квадраты чисел
+int squares_num_input(double arr[], int size, int *error)     // Квадраты чисел
 {
     double start = 0.;
     int answer = 0;
+
+    if (error == NULL)
+        return -1;
 			
     printf("\n  Введите начальное число: ");
 	if(scanf("%lf", &start) != 1)
     {
-        printf("ERROR");
-        return 1;
+        *error = -1;
+        return -1;
     }
 
     printf ("\n- Введите 1 если хотите заполнять массив по возрастанию\n- Введите 2 если хотите заполнять массив по убыванию\n");
@@ -161,8 +177,8 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
 
         if(scanf("%d", &answer) != 1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
         
         switch (answer)
@@ -173,6 +189,7 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
 	            {
 		            arr[i] = (start + i) * (start + i);
 	            }
+
                 break;
             }
             case 2:
@@ -181,6 +198,7 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
 	            {
 		            arr[i] = (start - i) * (start - i);
 	            }
+
                 break;
             }
         }
@@ -190,26 +208,29 @@ int squares_num_input(double arr[], int size)     // Квадраты чисел
 }
 
 
-int pow_num_input(double arr[], int size)       // Массив степени числа
+int pow_num_input(double arr[], int size, int *error)       // Массив степени числа
 {
     double start = 0.;
     double start_power = 0.;
     int answer = 0;
+
+    if (error == NULL)
+        return -1;
 
 	do
     {
         printf("\n  Введите число: ");
         if(scanf("%lf", &start) != 1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
     } while((start == 0) || (start == 1));
 	printf("  Введите начальную степень: ");
     if(scanf("%lf", &start_power) != 1)
     {
-        printf("ERROR");
-        return 1;
+        *error = -1;
+        return -1;
     }
 
     printf ("\n- Введите 1 если хотите заполнять массив по возрастанию степени\n- Введите 2 если хотите заполнять массив по убыванию степени\n");
@@ -219,8 +240,8 @@ int pow_num_input(double arr[], int size)       // Массив степени �
 
         if(scanf("%d", &answer) != 1)
         {
-            printf("ERROR");
-            return 1;
+            *error = -1;
+            return -1;
         }
         
         switch (answer)
@@ -230,7 +251,8 @@ int pow_num_input(double arr[], int size)       // Массив степени �
 	           for (int i = 0; i < size; i++)	
 				{
 					arr[i] = pow(start, start_power + i);
-				} 
+				}
+
                 break;
             }
             case 2:
@@ -238,7 +260,8 @@ int pow_num_input(double arr[], int size)       // Массив степени �
                 for (int i = 0; i < size; i++)	
 				{
 					arr[i] = pow(start, start_power - i);
-				} 
+				}
+
                 break;
             }
             default:
@@ -256,9 +279,10 @@ int pow_num_input(double arr[], int size)       // Массив степени �
 // Функционал ввода данных в массив:
 
 
-int input(double arr[], int size, int *error_remark) 
-{    
-    *error_remark = 0;
+int input(double arr[], int size, int manual_limit, int *error) 
+{   
+    if (error == NULL)
+        return -1;
     
     printf("\nИнструкция по заполнению массива:\n");
 	printf(" - Для заполнения массива необходимо указать его размер\n");
@@ -273,8 +297,8 @@ int input(double arr[], int size, int *error_remark)
         printf("Введите требуемое значение: ");
         if (scanf("%d",&forward_back) != 1)
         {
-            *error_remark = +1;
-			return 1;
+            *error = -1;
+			return -1;
         }
     } while ((forward_back != 0) && (forward_back != 1));
     if (forward_back == 0)
@@ -288,21 +312,24 @@ int input(double arr[], int size, int *error_remark)
 		printf("\nВведите размер массива: ");
 		if(scanf("%d", &user_size) != 1)
 		{
-            *error_remark = +1;
-			return 1;
+            *error = -1;
+			return -1;
 		}
 	} while ((user_size < 1) || (user_size > size));
 
 
-	if (user_size <= 20)									//Вариативность заполнения
+	if (user_size <= manual_limit)									//Вариативность заполнения
 	{
-        user_size = manual_input(arr, user_size);
+        *error = 0;
+        user_size = manual_input(arr, user_size, error);
 	}
 	else
 	{
         int answer = 0;
         do
         {
+            *error = 0;
+
 		    printf(
 		        "\nВарианты заполнения массива:\n"
     	        " 1. Массив со случайными числами в полном диапазоне\n"
@@ -314,10 +341,11 @@ int input(double arr[], int size, int *error_remark)
   		        " 7. Массив степени числа\n\n"
  		        "Выберите как заполнить массив: "
                 );
+
             if (scanf("%d", &answer) != 1)
             {
-                *error_remark = +1;
-                return 1;
+                *error = -1;
+                return -1;
             }
 
 		    switch (answer)								// Обработка запроса пользователя
@@ -331,23 +359,23 @@ int input(double arr[], int size, int *error_remark)
 				    break;
 
 			    case 3:
-                    user_size = random_range_input(arr, user_size);
+                    user_size = random_range_input(arr, user_size, error);
 				    break;
 
 			    case 4:
-                    user_size = arithmetic_progression_input(arr, user_size);
+                    user_size = arithmetic_progression_input(arr, user_size, error);
 				    break;
 
 			    case 5:
-				    user_size = geometric_progression_input(arr, user_size);
+				    user_size = geometric_progression_input(arr, user_size, error);
 				    break;
 
 			    case 6:
-				    user_size = squares_num_input(arr, user_size);
+				    user_size = squares_num_input(arr, user_size, error);
 				    break;
 
 			    case 7:
-				    user_size = pow_num_input(arr, user_size);
+				    user_size = pow_num_input(arr, user_size, error);
 				    break;
 
                 default:
