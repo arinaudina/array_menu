@@ -31,6 +31,15 @@ int menu_sort_array(double arr[], int size);
  * \return index of the found element or -1 if not found
  */
 int menu_search_element(double arr[], int size, bool sorted);
+/**
+ * Function to insert an element into the array while maintaining sorted order
+ * 
+ * \param arr - array to be modified
+ * \param size - current size of the array
+ * \param max_size - maximum allowable size of the array
+ * \return new size of the array or -1 in case of error
+ */
+int menu_insert_element(double arr[], int size, int max_size);
 
 
 int main() {
@@ -117,8 +126,13 @@ int main() {
 				printf("Array is empty or not sorted. Please fill and sort the array first.\n");
 				break;
 			}
-			
-			printf("Add element functionality not implemented yet.\n");
+			const int new_size = menu_insert_element(array, size, MAX_SIZE);
+			if (new_size != -1) {
+				size = new_size;
+				printf("Element inserted successfully. New size: %d\n", size);
+			} else {
+				printf("ERR: Insertion failed\n");
+			}
 			break;
 		case 0:
 			printf("Exiting program.\n");
