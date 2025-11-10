@@ -16,39 +16,19 @@ int pow_num_input(double arr[], int size);
 int menu_fill_array(double arr[], int max_size, int manual_limit) {
 	// Instructions for filling the array
     printf(
-		"Filling instructions:\n"
+		"=============================== Filling instructions: ================================\n"
 		"- To fill the array, you must specify its size\n"
 		"- When specifying the array size, enter any number from 1 to 200\n"
 		"   If the array size is 20 or less, manual input will be available\n"
 		"   If the array size is greater than 20, a menu with filling options will be available\n"
+		"=======================================================================================\n"
 	);
-
-	// Asking the user whether to continue filling the array or return to the main menu
-    int answer1 = 0;
-    do {
-		printf(
-			"1. Continue filling the array\n"
-			"0. Return to the main menu\n"
-			"Select: "
-		);
-
-		if (scanf("%d", &answer1) != 1) {
-			printf("ERR: Invalid input\n");
-			return -1;
-		}
-		printf("\n"); // New line for better readability after scanf
-    } while ((answer1 != 0) && (answer1 != 1));
-
-	// If the user chooses to return to the main menu
-    if (answer1 == 0) {
-        return 0;
-    }
 
 	// Getting the array size from the user
     int user_size = 0; // Size of the array specified by the user
     do {
 		printf("Enter the array size: ");
-		if (scanf("%d", user_size) != 1) {
+		if (scanf("%d", &user_size) != 1) {
 			printf("ERR: Invalid input\n");
 			return -1;
 		}
@@ -111,7 +91,7 @@ int menu_fill_array(double arr[], int max_size, int manual_limit) {
 			user_size = 0;
 			break;
 		default:
-			printf("Incorrect option. Try again.\n");
+			printf("WARN: Incorrect option. Try again.\n");
 			break;
 		}
 	} while ((answer2 < 0) || (answer2 > 7));
@@ -133,7 +113,6 @@ int manual_input(double arr[], int size) {
         if (scanf("%lf", &arr[i]) != 1) {
             return -1;
         }
-		printf("\n"); // New line for better readability after scanf
     }
     return size;
 }
@@ -183,13 +162,13 @@ int random_range_input(double arr[], int size) {
     int min = 0; // Minimum value of the range
     int max = 0; // Maximum value of the range
     do {
-		printf("  Enter an integer minimum value: ");
+		printf("Enter an integer minimum value: ");
         if (scanf("%d", &min) != 1) {
             return -1;
         }
 		printf("\n"); // New line for better readability after scanf
 
-	    printf("  Enter an integer maximum value: ");
+	    printf("Enter an integer maximum value: ");
         if (scanf("%d", &max) != 1) {
             return -1;
         }
@@ -214,14 +193,14 @@ int arithmetic_progression_input(double arr[], int size) {
     double start = 0.; // First term of the progression
     double step = 0.; // Common difference of the progression
 
-	printf("\n  Enter the initial number: ");
+	printf("Enter the initial number: ");
 	if (scanf("%lf", &start) != 1) {
 		return -1;
 	}
 	printf("\n"); // New line for better readability after scanf
 
 	do {
-		printf("  Enter the step of the progression: ");
+		printf("Enter the step of the progression: ");
 		if (scanf("%lf", &step) != 1) {
 			return -1;
 		}
@@ -248,7 +227,7 @@ int geometric_progression_input(double arr[], int size) {
 
 	// Getting the first term of the progression from the user
 	do {
-		printf("  Enter the initial number: ");
+		printf("Enter the initial number: ");
 		if (scanf("%lf", &start) != 1) {
 			return -1;
 		}
@@ -257,7 +236,7 @@ int geometric_progression_input(double arr[], int size) {
 
 	// Getting the common ratio of the progression from the user
 	do {
-		printf("  Enter the ratio of the progression: ");
+		printf("Enter the ratio of the progression: ");
 		if (scanf("%lf", &ratio) != 1) {
 			return -1;
 		}
@@ -283,7 +262,7 @@ int geometric_progression_input(double arr[], int size) {
 int squares_num_input(double arr[], int size) {
     double start = 0.; // Initial number
 
-    printf("\n  Enter the initial number: ");
+    printf("Enter the initial number: ");
 	if (scanf("%lf", &start) != 1) {
 		return -1;
 	}
@@ -334,14 +313,14 @@ int pow_num_input(double arr[], int size) {
 
     int answer = 0;
 	do {
-        printf("  Enter the base number (not 0 or 1): ");
+        printf("Enter the base number (not 0 or 1): ");
 		if (scanf("%lf", &start) != 1) {
 			return -1;
 		}
 		printf("\n"); // New line for better readability after scanf
     } while((start == 0) || (start == 1));
 
-	printf("  Enter the initial exponent: ");
+	printf("Enter the initial exponent: ");
 	if (scanf("%lf", &start_power) != 1) {
 		return -1;
 	}
@@ -349,9 +328,9 @@ int pow_num_input(double arr[], int size) {
 
     do {
 		printf (
-			"- 1. Fill the array in ascending order of exponent\n"
-			"- 2. Fill the array in descending order of exponent\n"
-			"  Select: "
+			"1. Fill the array in ascending order of exponent\n"
+			"2. Fill the array in descending order of exponent\n"
+			"Select: "
 		);
 
 		if (scanf("%d", &answer) != 1) {
@@ -371,7 +350,7 @@ int pow_num_input(double arr[], int size) {
 			}
 			break;
 		default:
-			printf("\nInvalid option. Try again.\n");
+			printf("WARN: Invalid option. Try again.\n");
 			break;
         }
     } while ((answer != 1) && (answer != 2));

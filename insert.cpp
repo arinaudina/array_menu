@@ -6,13 +6,13 @@ int insert_element(double arr[], int size, double new_element, int pos);
 
 
 int menu_insert_element(double arr[], int size, int max_size) {
-    if (size >= max_size - 1) {
+    if (size >= max_size) {
         printf("ERR: Array is full. Cannot insert new element.\n");
         return -1;
     }
 
     double new_element = 0.;
-    printf("  Enter the element to insert: ");
+    printf("Enter the element to insert: ");
     if (scanf("%lf", &new_element) != 1) {
         printf("ERR: Invalid input\n");
         return -1;
@@ -66,9 +66,11 @@ int binary_search_and_insert(double arr[], int size, double new_element) {
  */
 int insert_element(double arr[], int size, double new_element, int pos) {
     if (pos < 0 || pos > size) {
-        printf("ERR: Invalid position. Please try again.\n");
+        printf("ERR: Invalid position.\n");
         return -1;
     }
+
+    printf("Inserting element %lf at index %d.\n", new_element, pos);
 
     // Shift elements to the right to make space for the new element
     for (int i = size; i > pos; i--) {

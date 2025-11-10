@@ -8,7 +8,7 @@ int binary_search(double arr[], int size, double target);
 
 int menu_search_element(double arr[], int size, bool sorted) {
     double target = 0.;
-    printf("  Enter the element to search for: ");
+    printf("Enter the element to search for: ");
     if (scanf("%lf", &target) != 1) {
         printf("ERR: Invalid input\n");
         return -1;
@@ -51,7 +51,7 @@ int menu_search_element(double arr[], int size, bool sorted) {
             printf("Returning to main menu.\n");
             break;
         default:
-            printf("ERR: Invalid selection. Please try again.\n");
+            printf("WARN: Invalid selection. Please try again.\n");
             break;
         }
     } while (answer < 0 || answer > 3);
@@ -60,7 +60,7 @@ int menu_search_element(double arr[], int size, bool sorted) {
 }
 
 /**
- * Searches for the target element in the array using linear traversal.
+ * Simple brute-force search function
  * 
  * \param arr - array to be searched
  * \param size - size of the array

@@ -70,7 +70,7 @@ int main() {
 
 		// Handle menu options
 		switch (answer) {
-		case 1:
+		case 1: {
 			const int res = menu_fill_array(array, MAX_SIZE, MANUAL_LIMIT);
 			filled = res > 0;
 			if (filled) {
@@ -78,11 +78,12 @@ int main() {
 				printf("Array filled successfully. Size: %d\n", size);
 			} else {
 				size = 0;
-				printf("ERR: Filling array failed\n");
+				printf("Cancelled or filling array was failed\n");
 			}
 			// After filling, the array is not sorted
 			sorted = false;
 			break;
+		}
 		case 2:
 			if (filled) {
 				printf("Array elements:\n");
@@ -90,12 +91,12 @@ int main() {
 					printf("  Element %d: %lf\n", i + 1, array[i]);
 				}
 			} else {
-				printf("Array is empty. Please fill the array first.\n");
+				printf("WARN: Array is empty. Please fill the array first.\n");
 			}
 			break;
 		case 3: {
 			if (!filled) {
-				printf("Array is empty. Please fill the array first.\n");
+				printf("WARN: Array is empty. Please fill the array first.\n");
 				break;
 			}
 
@@ -104,13 +105,13 @@ int main() {
 			if (sorted) {
 				printf("Array sorted successfully.\n");
 			} else {
-				printf("ERR: Array sorting failed\n");
+				printf("Cancelled or array sorting was failed\n");
 			}
 			break;
 		}
-		case 4:
+		case 4: {
 			if (!filled) {
-				printf("Array is empty. Please fill the array first.\n");
+				printf("WARN: Array is empty. Please fill the array first.\n");
 				break;
 			}
 
@@ -118,26 +119,35 @@ int main() {
 			if (index != -1) {
 				printf("Element found at index: %d\n", index);
 			} else {
-				printf("Element not found in the array.\n");
+				printf("Cancelled or element was not found in the array.\n");
 			}
 			break;
-		case 5:
+		}
+		case 5: {
 			if (!filled || !sorted) {
 				printf("Array is empty or not sorted. Please fill and sort the array first.\n");
 				break;
 			}
 			const int new_size = menu_insert_element(array, size, MAX_SIZE);
 			if (new_size != -1) {
-				size = new_size;
-				printf("Element inserted successfully. New size: %d\n", size);
+				if (size != new_size) {
+					size = new_size;
+					printf("Element inserted successfully. New size: %d\n", new_size);
+				} else {
+					printf("Element already exists. No insertion made.\n");
+				}
 			} else {
 				printf("ERR: Insertion failed\n");
 			}
 			break;
+		}
 		case 0:
 			printf("Exiting program.\n");
 			break;
-		};
+		default:
+			printf("WARN: Invalid option. Please try again.\n");
+			break;
+		}
 	} while (answer != 0);
 
 	return 0;

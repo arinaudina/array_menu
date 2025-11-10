@@ -2,13 +2,13 @@
 
 // Forward declarations of sorting functions
 int check_sorted(double arr[], int size);
-void linear_sort(double arr[], int size);
+void selection_sort(double arr[], int size);
 void bubble_sort(double arr[], int size);
 void insertion_sort(double arr[], int size);
 
 int menu_sort_array(double arr[], int size) {
     if (check_sorted(arr, size) == 0) {
-        printf("Array is already sorted.\n");
+        printf("WARN: Array is already sorted.\n");
         return size;
     }
 
@@ -17,7 +17,7 @@ int menu_sort_array(double arr[], int size) {
     do {
         printf(
             "Sorting methods:\n"
-            "1. Linear Sort\n"
+            "1. Selection (Linear) Sort\n"
             "2. Bubble Sort\n"
             "3. Insertion Sort\n"
             "0. Return to main menu\n"
@@ -32,7 +32,7 @@ int menu_sort_array(double arr[], int size) {
 
     switch (answer) {
     case 1:
-        linear_sort(arr, size);
+        selection_sort(arr, size);
         break;
     case 2:
         bubble_sort(arr, size);
@@ -42,7 +42,7 @@ int menu_sort_array(double arr[], int size) {
         break;
     case 0:
         printf("Returning to main menu.\n");
-        break;
+        return -1;
     }
 
     return size;
@@ -63,21 +63,23 @@ int check_sorted(double arr[], int size) {
 }
 
 /**
- * Function to perform linear sort on the array
+ * Function to perform linear sort (selection sort) on the array
  * 
  * \param arr - array to be sorted
  * \param size - size of the array
  */
-void linear_sort(double arr[], int size) {
-    for(int i = 0; i < size - 1; i++) {
-        for(int j = 0; j < size - i - 1; j++) {
-            if(arr[j] > arr[j + 1]) {
-                // Swap arr[j] and arr[j+1]
-                double temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+void selection_sort(double arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < size; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
             }
         }
+        // Swap the found minimum element with the first element
+        double temp = arr[min_idx];
+        arr[min_idx] = arr[i];
+        arr[i] = temp;
     }
 }
 

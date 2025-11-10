@@ -2,6 +2,5 @@
 
 ## Create execute
 
-```
-clang menu.cpp input.cpp -o program
-```
+```bash
+clang menu.cpp fill.cpp sort.cpp search.cpp insert.cpp -o program
