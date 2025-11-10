@@ -66,13 +66,14 @@ int menu_fill_array(double arr[], int max_size, int manual_limit) {
 	do {
 		printf(
 			"Variants for filling the array:\n"
-			" 1. Array with random numbers in the full range\n"
-			" 2. Array with random non-negative numbers\n"
-			" 3. Array of numbers from _ to _\n"
-			" 4. Array of arithmetic progression\n"
-			" 5. Array of geometric progression\n"
-			" 6. Array of squares of numbers\n"
-			" 7. Array of powers of a number\n\n"
+			"1. Array with random numbers in the full range\n"
+			"2. Array with random non-negative numbers\n"
+			"3. Array of numbers from _ to _\n"
+			"4. Array of arithmetic progression\n"
+			"5. Array of geometric progression\n"
+			"6. Array of squares of numbers\n"
+			"7. Array of powers of a number\n"
+			"0. Return to main menu\n"
 			"Select: "
 		);
 
@@ -105,11 +106,15 @@ int menu_fill_array(double arr[], int max_size, int manual_limit) {
 		case 7:
 			user_size = pow_num_input(arr, user_size);
 			break;
+		case 0:
+			printf("Returning to main menu.\n");
+			user_size = 0;
+			break;
 		default:
 			printf("Incorrect option. Try again.\n");
 			break;
 		}
-	} while ((answer2 < 1) || (answer2 > 7));
+	} while ((answer2 < 0) || (answer2 > 7));
 
     return user_size;
 }

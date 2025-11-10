@@ -7,11 +7,6 @@ void bubble_sort(double arr[], int size);
 void insertion_sort(double arr[], int size);
 
 int menu_sort_array(double arr[], int size) {
-    // Check if the array has enough elements to sort
-    if (size <= 1) {
-        printf("Array is too small to sort. Please fill the array first.\n");
-        return -1;
-    }
     if (check_sorted(arr, size) == 0) {
         printf("Array is already sorted.\n");
         return size;
@@ -25,6 +20,7 @@ int menu_sort_array(double arr[], int size) {
             "1. Linear Sort\n"
             "2. Bubble Sort\n"
             "3. Insertion Sort\n"
+            "0. Return to main menu\n"
             "Select sorting method: "
         );
         if (scanf("%d", &answer) != 1) {
@@ -32,21 +28,22 @@ int menu_sort_array(double arr[], int size) {
             return -1;
         }
         printf("\n"); // New line for better readability after scanf
-    } while (answer < 1 || answer > 3);
+    } while (answer < 0 || answer > 3);
 
-    printf("Sorting array using method %d...\n", answer);
     switch (answer) {
-        case 1:
-            linear_sort(arr, size);
-            break;
-        case 2:
-            bubble_sort(arr, size);
-            break;
-        case 3:
-            insertion_sort(arr, size);
-            break;
+    case 1:
+        linear_sort(arr, size);
+        break;
+    case 2:
+        bubble_sort(arr, size);
+        break;
+    case 3:
+        insertion_sort(arr, size);
+        break;
+    case 0:
+        printf("Returning to main menu.\n");
+        break;
     }
-    printf("Array sorted successfully.\n");
 
     return size;
 }

@@ -27,9 +27,10 @@ int menu_sort_array(double arr[], int size);
  * 
  * \param arr - array to be searched
  * \param size - size of the array
+ * \param sorted - indicates if the array is sorted
  * \return index of the found element or -1 if not found
  */
-int menu_search_element(double arr[], int size);
+int menu_search_element(double arr[], int size, bool sorted);
 
 
 int main() {
@@ -37,6 +38,8 @@ int main() {
 	int size = 0; // Size of the filled array
 
 	int answer = 0;
+	bool filled = false;
+	bool sorted = false;
 	do {
 		// Display menu options
 		printf(
@@ -59,14 +62,20 @@ int main() {
 		// Handle menu options
 		switch (answer) {
 		case 1:
-			size = menu_fill_array(array, MAX_SIZE, MANUAL_LIMIT);
-			if (size < 0) {
-				printf("ERR: Input error\n");
-				return -1;
+			const int res = menu_fill_array(array, MAX_SIZE, MANUAL_LIMIT);
+			filled = res > 0;
+			if (filled) {
+				size = res;
+				printf("Array filled successfully. Size: %d\n", size);
+			} else {
+				size = 0;
+				printf("ERR: Filling array failed\n");
 			}
+			// After filling, the array is not sorted
+			sorted = false;
 			break;
 		case 2:
-			if (size > 0) {
+			if (filled) {
 				printf("Array elements:\n");
 				for (int i = 0; i < size; i++) {
 					printf("  Element %d: %lf\n", i + 1, array[i]);
@@ -76,8 +85,14 @@ int main() {
 			}
 			break;
 		case 3: {
+			if (!filled) {
+				printf("Array is empty. Please fill the array first.\n");
+				break;
+			}
+
 			const int error = menu_sort_array(array, size);
-			if (error >= 0) {
+			sorted = (error >= 0);
+			if (sorted) {
 				printf("Array sorted successfully.\n");
 			} else {
 				printf("ERR: Array sorting failed\n");
@@ -85,7 +100,12 @@ int main() {
 			break;
 		}
 		case 4:
-			const int index = menu_search_element(array, size);
+			if (!filled) {
+				printf("Array is empty. Please fill the array first.\n");
+				break;
+			}
+
+			const int index = menu_search_element(array, size, sorted);
 			if (index != -1) {
 				printf("Element found at index: %d\n", index);
 			} else {
@@ -93,6 +113,11 @@ int main() {
 			}
 			break;
 		case 5:
+			if (!filled || !sorted) {
+				printf("Array is empty or not sorted. Please fill and sort the array first.\n");
+				break;
+			}
+			
 			printf("Add element functionality not implemented yet.\n");
 			break;
 		case 0:
