@@ -22,6 +22,14 @@ int menu_fill_array(double arr[], int max_size, int manual_limit);
  * \return size of the sorted array or -1 in case of error
  */
 int menu_sort_array(double arr[], int size);
+/**
+ * Function to search for an element in the array based on user-selected method
+ * 
+ * \param arr - array to be searched
+ * \param size - size of the array
+ * \return index of the found element or -1 if not found
+ */
+int menu_search_element(double arr[], int size);
 
 
 int main() {
@@ -29,7 +37,6 @@ int main() {
 	int size = 0; // Size of the filled array
 
 	int answer = 0;
-	bool sorted = false;
 	do {
 		// Display menu options
 		printf(
@@ -70,14 +77,26 @@ int main() {
 			break;
 		case 3: {
 			const int error = menu_sort_array(array, size);
-			sorted = (error >= 0);
-			if (!sorted) {
+			if (error >= 0) {
+				printf("Array sorted successfully.\n");
+			} else {
 				printf("ERR: Array sorting failed\n");
 			}
 			break;
 		}
-		default:
-			answer = 0;
+		case 4:
+			const int index = menu_search_element(array, size);
+			if (index != -1) {
+				printf("Element found at index: %d\n", index);
+			} else {
+				printf("Element not found in the array.\n");
+			}
+			break;
+		case 5:
+			printf("Add element functionality not implemented yet.\n");
+			break;
+		case 0:
+			printf("Exiting program.\n");
 			break;
 		};
 	} while (answer != 0);
